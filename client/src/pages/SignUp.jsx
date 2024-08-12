@@ -12,7 +12,6 @@ export default function SignUp() {
       [e.target.id]: e.target.value,
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -39,9 +38,6 @@ export default function SignUp() {
       setError(error.message);
     }
   };
-
-  // console.log(formData)
-
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl text-center font-semibold my-7'>Sign Up</h1>
@@ -76,7 +72,7 @@ export default function SignUp() {
         </button>
       </form>
       <div className='flex gap-2 mt-5'>
-        <p>Welcome back! Have an account with us?</p>
+        <p>Have an account?</p>
         <Link to={'/sign-in'}>
           <span className='text-blue-700'>Sign in</span>
         </Link>
