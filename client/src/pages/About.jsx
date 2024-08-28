@@ -1,19 +1,37 @@
-import React from 'react'
+import React from 'react';
 
-export default function About() {
+const AboutUs = () => {
   return (
-    <div className='py-20 px-4 max-w-6xl mx-auto'>
-  <h1 className='text-3xl font-bold mb-4 text-slate-800'>About DreamDwell</h1>
-  <p className='mb-4 text-slate-700'>
-    DreamDwell is your go-to platform for finding your perfect home. We make the process of buying, selling, and renting properties easy and enjoyable. Our expert team is here to guide you every step of the way, ensuring a smooth and satisfying experience.
-  </p>
-  <p className='mb-4 text-slate-700'>
-    Our goal is to help you achieve your real estate dreams with personalized service and in-depth local knowledge. Whether you are searching for a new home, selling your property, or looking to rent, DreamDwell is here to make it happen.
-  </p>
-  <p className='mb-4 text-slate-700'>
-    With a dedicated team of professionals, we turn the real estate journey into an exciting adventure. At DreamDwell, your dream home is just a step away.
-  </p>
-</div>
-
-  )
+    <div className='min-h-screen py-8'>
+      <div className='max-w-4xl mx-auto px-4'>
+        
+        {/* Header Section */}
+        <header className='text-center mb-12'>
+          <h1 className='text-3xl font-bold text-gray-800 mb-4'>About Us</h1>
+          <p className='text-gray-600 text-lg'>
+            At DreamDwell, we're passionate about helping you find your perfect home. Our mission is to simplify the process of home renting and buying with modern technology and exceptional service.
+          </p>
+        </header>
+        
+        {/* Mission Section */}
+        <section className='mb-10 bg-white p-8 rounded-lg shadow-md'>
+          <h2 className='text-2xl font-semibold text-gray-800 mb-4'>Our Mission</h2>
+          <p className='text-gray-700'>
+            DreamDwell aims to revolutionize the real estate market by providing an intuitive platform that connects people with their dream homes. We believe that finding a home should be a seamless and enjoyable experience, and we’re committed to making that a reality for our users.
+          </p>
+        </section>
+        
+        {/* History Section */}
+        <section className='bg-white p-8 rounded-lg shadow-md'>
+          <h2 className='text-2xl font-semibold text-gray-800 mb-4'>Our History</h2>
+          <p className='text-gray-700'>
+            DreamDwell was founded in 2020 with the goal of changing the way people search for homes. Over the years, we have expanded our team, refined our platform, and grown our user base, always staying true to our mission of making home finding effortless and enjoyable.
+          </p>
+        </section>
+        
+      </div>
+    </div>
+  );
 }
+
+export default AboutUs;

@@ -52,97 +52,122 @@ export default function Listing() {
   console.log(loading);
 
   return (
-    <main>
-      {loading && <p className='text-center my-7 text-2xl'>Loading...</p>}
-      {error && (
-        <p className='text-center my-7 text-2xl'>Something went wrong!</p>
-      )}
+    <main className="relative">
+      {/* Loading and Error States */}
+      {loading && <p className='text-center my-7 text-2xl text-gray-700'>Loading...</p>}
+      {error && <p className='text-center my-7 text-2xl text-red-600'>Something went wrong!</p>}
+      
+      {/* Listing Content */}
       {listing && !loading && !error && (
-        <div>
-          <Swiper navigation>
+        <div className='max-w-7xl mx-auto px-4 py-6'>
+          {/* Swiper for Image Carousel */}
+          <Swiper navigation loop className="my-6">
             {listing.imageUrls.map((url) => (
               <SwiperSlide key={url}>
                 <div
-                  className='h-[550px]'
-                  style={{
-                    background: `url(${url}) center no-repeat`,
-                    backgroundSize: 'cover',
-                  }}
+                  className='h-[550px] bg-cover bg-center rounded-lg'
+                  style={{ backgroundImage: `url(${url})` }}
                 ></div>
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className='fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer'>
+
+          {/* Share Button */}
+          <div className='fixed top-20 sm:top:4 right-4 z-10 bg-white p-3 rounded-full shadow-md cursor-pointer'>
             <FaShare
-              className='text-slate-500'
+              className='text-gray-700 text-2xl'
               onClick={() => {
                 navigator.clipboard.writeText(window.location.href);
                 setCopied(true);
-                setTimeout(() => {
-                  setCopied(false);
-                }, 2000);
+                setTimeout(() => setCopied(false), 2000);
               }}
             />
           </div>
+          
+          {/* Copy Link Notification */}
           {copied && (
-            <p className='fixed top-[23%] right-[5%] z-10 rounded-md bg-slate-100 p-2'>
+            <p className='fixed top-16 right-4 z-10 bg-gray-100 p-3 rounded-lg shadow-md text-gray-800'>
               Link copied!
             </p>
           )}
-          <div className='flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4'>
-            <p className='text-2xl font-semibold'>
-              {listing.name} - ${' '}
-              {listing.offer
-                ? listing.discountPrice.toLocaleString('en-US')
-                : listing.regularPrice.toLocaleString('en-US')}
-              {listing.type === 'rent' && ' / month'}
+
+          {/* Listing Details */}
+          <div className='bg-white rounded-lg shadow-lg p-6'>
+          <div className='w-full flex justify-between items-center mb-0'>
+            <h1 className='text-2xl font-bold text-gray-800'>{listing.name}</h1>
+            <p className='bg-red-900 text-white text-center p-2 rounded-md'>
+              {listing.type === 'rent' ? 'For Rent' : 'For Sale'}
             </p>
-            <p className='flex items-center mt-6 gap-2 text-slate-600  text-sm'>
-              <FaMapMarkerAlt className='text-green-700' />
-              {listing.address}
-            </p>
-            <div className='flex gap-4'>
-              <p className='bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md'>
-                {listing.type === 'rent' ? 'For Rent' : 'For Sale'}
+          </div>
+
+
+            {/* Address and Listing Type */}
+            <p className='flex items-center text-gray-600 text-base mb-4'>
+                <FaMapMarkerAlt className='text-green-600 mr-2' />
+                {listing.address}
               </p>
-              {listing.offer && (
-                <p className='bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md'>
-                  ${+listing.regularPrice - +listing.discountPrice} OFF
-                </p>
+            
+            {/* Price and Offer Details */}
+            <div className='text-xl mb-6 flex items-center space-x-4'>
+              {listing.offer ? (
+                <>
+                  <span className="text-blue-500 line-through text-lg">
+                    ${listing.regularPrice.toLocaleString('en-US')}
+                  </span>
+                  <span className="text-red-600 font-bold">
+                    ${(listing.regularPrice - listing.discountPrice).toLocaleString('en-US')}
+                  </span>
+                  {listing.type === 'rent' && <span className="text-gray-600">/ month</span>}
+                  <p className="bg-gradient-to-r from-red-500 to-red-700 text-white px-4 py-2 rounded-lg font-semibold shadow-md">
+                    ${listing.discountPrice.toLocaleString('en-US')} Off
+                  </p>
+                </>
+              ) : (
+                <>
+                <span className="text-red-600 font-bold">
+                  ${listing.regularPrice.toLocaleString('en-US')}
+                </span>
+                {listing.type === 'rent' && <span className="text-gray-600">/ month</span>}
+                </>
               )}
+              
             </div>
-            <p className='text-slate-800'>
-              <span className='font-semibold text-black'>Description - </span>
-              {listing.description}
+
+            {/* Description and Features */}
+            <p className='text-gray-800 mb-4 font-semibold'>
+               {listing.description}
             </p>
-            <ul className='text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6'>
-              <li className='flex items-center gap-1 whitespace-nowrap '>
+
+            
+
+            <ul className='text-green-900 font-semibold flex flex-wrap gap-8 mb-4'>
+              <li className='flex items-center gap-2'>
                 <FaBed className='text-lg' />
-                {listing.bedrooms > 1
-                  ? `${listing.bedrooms} beds `
-                  : `${listing.bedrooms} bed `}
+                {listing.bedrooms} {listing.bedrooms > 1 ? 'beds' : 'bed'}
               </li>
-              <li className='flex items-center gap-1 whitespace-nowrap '>
+              <li className='flex items-center gap-2'>
                 <FaBath className='text-lg' />
-                {listing.bathrooms > 1
-                  ? `${listing.bathrooms} baths `
-                  : `${listing.bathrooms} bath `}
+                {listing.bathrooms} {listing.bathrooms > 1 ? 'baths' : 'bath'}
               </li>
-              <li className='flex items-center gap-1 whitespace-nowrap '>
+              <li className='flex items-center gap-2'>
                 <FaParking className='text-lg' />
                 {listing.parking ? 'Parking spot' : 'No Parking'}
               </li>
-              <li className='flex items-center gap-1 whitespace-nowrap '>
+              <li className='flex items-center gap-2'>
                 <FaChair className='text-lg' />
                 {listing.furnished ? 'Furnished' : 'Unfurnished'}
               </li>
             </ul>
+
+            {/* Contact Button */}
             {currentUser && listing.userRef !== currentUser._id && !contact && (
-              <button onClick={()=>setContact(true)} className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3'>
+              <button 
+                onClick={() => setContact(true)} 
+                className='bg-gray-700 text-white rounded-lg px-6 py-3 hover:bg-gray-600 transition-colors mt-4'>
                 Contact landlord
               </button>
             )}
-            {contact && <Contact listing={listing}/>}
+            {contact && <Contact listing={listing} />}
           </div>
         </div>
       )}

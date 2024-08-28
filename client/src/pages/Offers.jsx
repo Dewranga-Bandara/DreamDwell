@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ListingItem from '../components/ListingItem';
 
-export default function Search() {
+export default function Offers() {
   const navigate = useNavigate();
   const [sidebardata, setSidebardata] = useState({
     searchTerm: '',
     type: 'all',
     parking: false,
     furnished: false,
-    offer: false,
+    offer: true,
     sort: 'created_at',
     order: 'desc',
   });
@@ -215,11 +215,11 @@ export default function Search() {
           {showMore && (
             <div className='flex justify-center items-center mx-auto'>
               <button
-                onClick={onShowMoreClick}
-                className='bg-green-600 text-white p-3 rounded-lg hover:bg-green-500 transition w-fit'
-              >
-                Show More
-              </button>
+              onClick={onShowMoreClick}
+              className='bg-green-600 text-white p-3 rounded-lg hover:bg-green-500 transition w-fit'
+            >
+              Show More
+            </button>
             </div>
           )}
         </div>
