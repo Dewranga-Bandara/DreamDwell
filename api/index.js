@@ -22,6 +22,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
+
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/listing', listingRouter);
@@ -36,5 +37,8 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Export the Express app as a module to be used by Vercel's serverless functions
-export default app;
+
+app.listen(3000, () => {
+    console.log(`Server is running on port 3000!`);
+});
+

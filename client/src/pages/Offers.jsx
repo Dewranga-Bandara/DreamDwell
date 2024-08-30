@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ListingItem from '../components/ListingItem';
 
-const apiUrl = import.meta.env.VITE_API_URL;
+// const apiUrl = import.meta.env.VITE_API_URL;
 
 
 export default function Offers() {
@@ -55,7 +55,7 @@ export default function Offers() {
       setLoading(true);
       setShowMore(false);
       const searchQuery = urlParams.toString();
-      const res = await fetch(`${apiUrl}/api/listing/get?${searchQuery}`);
+      const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
       if (data.length > 8) {
         setShowMore(true);
@@ -95,7 +95,7 @@ export default function Offers() {
     const urlParams = new URLSearchParams(location.search);
     urlParams.set('startIndex', numberOfListings);
     const searchQuery = urlParams.toString();
-    const res = await fetch(`${apiUrl}/api/listing/get?${searchQuery}`);
+    const res = await fetch(`/api/listing/get?${searchQuery}`);
     const data = await res.json();
     setListings([...listings, ...data]);
     setShowMore(data.length >= 9);
